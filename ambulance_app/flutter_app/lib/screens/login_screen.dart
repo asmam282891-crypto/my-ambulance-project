@@ -8,8 +8,8 @@ import 'paramedic_screen.dart';
 import 'hospital_screen.dart';
 import 'staff_home_screen.dart';
 
-// عدّل هذين الرابطين بروابط صفحاتكم الفعلية على فيسبوك وواتساب
-const kFacebookUrl = 'https://facebook.com/YOUR_PAGE';
+// روابط التواصل الرسمية للتطبيق
+const kFacebookUrl = 'https://www.facebook.com/share/19jTvKkuZV/';
 const kWhatsappUrl = 'https://wa.me/249XXXXXXXXX';
 
 class LoginScreen extends StatefulWidget {
@@ -67,7 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
         default:
           destination = const LoginScreen();
       }
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => destination));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => destination));
     } catch (e) {
       setState(() => _error = e.toString().replaceAll('Exception: ', ''));
     } finally {
@@ -100,7 +101,8 @@ class _LoginScreenState extends State<LoginScreen> {
           SafeArea(
             child: Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 420),
                   child: Form(
@@ -112,22 +114,30 @@ class _LoginScreenState extends State<LoginScreen> {
                         _buildBadge(),
                         const SizedBox(height: 18),
                         const Text(
-                          'نظام الإسعاف القومي',
-                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.red),
+                          'الإسعاف المركزي',
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 8),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(width: 24, height: 1.5, color: Colors.red[300]),
+                            Container(
+                                width: 24, height: 1.5, color: Colors.red[300]),
                             const SizedBox(width: 8),
                             const Text(
-                              'ولاية البحر الأحمر',
-                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black87),
+                              'نظام إدارة الإسعاف والطوارئ',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black87),
                             ),
                             const SizedBox(width: 8),
-                            Container(width: 24, height: 1.5, color: Colors.red[300]),
+                            Container(
+                                width: 24, height: 1.5, color: Colors.red[300]),
                           ],
                         ),
                         const SizedBox(height: 28),
@@ -159,16 +169,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                 obscure: _obscurePassword,
                                 suffix: IconButton(
                                   icon: Icon(
-                                    _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                                    _obscurePassword
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
                                     color: Colors.grey,
                                   ),
-                                  onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                                  onPressed: () => setState(() =>
+                                      _obscurePassword = !_obscurePassword),
                                 ),
                                 onSubmit: (_) => _login(),
                               ),
                               if (_error != null) ...[
                                 const SizedBox(height: 12),
-                                Text(_error!, style: const TextStyle(color: Colors.red)),
+                                Text(_error!,
+                                    style: const TextStyle(color: Colors.red)),
                               ],
                               const SizedBox(height: 22),
                               SizedBox(
@@ -178,7 +192,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(30),
                                     gradient: LinearGradient(
-                                      colors: [Colors.red.shade700, Colors.red.shade400],
+                                      colors: [
+                                        Colors.red.shade700,
+                                        Colors.red.shade400
+                                      ],
                                       begin: Alignment.centerLeft,
                                       end: Alignment.centerRight,
                                     ),
@@ -195,11 +212,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                     onPressed: _loading ? null : _login,
                                     child: _loading
                                         ? const SizedBox(
-                                            width: 20, height: 20,
-                                            child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                                            width: 20,
+                                            height: 20,
+                                            child: CircularProgressIndicator(
+                                                strokeWidth: 2,
+                                                color: Colors.white),
                                           )
                                         : const Text('تسجيل الدخول',
-                                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold)),
                                   ),
                                 ),
                               ),
@@ -207,19 +229,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         const SizedBox(height: 24),
-                        const Text('تواصل معنا', style: TextStyle(color: Colors.black54, fontSize: 13)),
+                        const Text('تواصل معنا',
+                            style:
+                                TextStyle(color: Colors.black54, fontSize: 13)),
                         const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             _socialButton(
-                              icon: FaIcon(FontAwesomeIcons.facebook, color: const Color(0xFF1877F2), size: 22),
+                              icon: FaIcon(FontAwesomeIcons.facebook,
+                                  color: const Color(0xFF1877F2), size: 22),
                               color: const Color(0xFF1877F2),
                               onTap: () => _openLink(kFacebookUrl),
                             ),
                             const SizedBox(width: 16),
                             _socialButton(
-                              icon: FaIcon(FontAwesomeIcons.whatsapp, color: const Color(0xFF25D366), size: 22),
+                              icon: FaIcon(FontAwesomeIcons.whatsapp,
+                                  color: const Color(0xFF25D366), size: 22),
                               color: const Color(0xFF25D366),
                               onTap: () => _openLink(kWhatsappUrl),
                             ),
@@ -247,7 +273,10 @@ class _LoginScreenState extends State<LoginScreen> {
         color: Colors.white,
         border: Border.all(color: Colors.red, width: 4),
         boxShadow: [
-          BoxShadow(color: Colors.red.withOpacity(0.15), blurRadius: 16, offset: const Offset(0, 6)),
+          BoxShadow(
+              color: Colors.red.withOpacity(0.15),
+              blurRadius: 16,
+              offset: const Offset(0, 6)),
         ],
       ),
       child: Center(
@@ -295,13 +324,17 @@ class _LoginScreenState extends State<LoginScreen> {
           borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(color: Colors.red, width: 1.5),
         ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
       ),
       validator: (v) => (v == null || v.isEmpty) ? 'مطلوب' : null,
     );
   }
 
-  Widget _socialButton({required Widget icon, required Color color, required VoidCallback onTap}) {
+  Widget _socialButton(
+      {required Widget icon,
+      required Color color,
+      required VoidCallback onTap}) {
     return InkWell(
       onTap: onTap,
       customBorder: const CircleBorder(),
@@ -331,12 +364,15 @@ class _SkylinePainter extends CustomPainter {
         colors: [Colors.red.shade100, Colors.red.shade50],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-      ).createShader(Rect.fromLTWH(0, baseY - waveHeight, size.width, waveHeight));
+      ).createShader(
+          Rect.fromLTWH(0, baseY - waveHeight, size.width, waveHeight));
 
     final wavePath = Path()
       ..moveTo(0, baseY - waveHeight * 0.4)
-      ..quadraticBezierTo(size.width * 0.25, baseY - waveHeight, size.width * 0.5, baseY - waveHeight * 0.5)
-      ..quadraticBezierTo(size.width * 0.75, baseY, size.width, baseY - waveHeight * 0.3)
+      ..quadraticBezierTo(size.width * 0.25, baseY - waveHeight,
+          size.width * 0.5, baseY - waveHeight * 0.5)
+      ..quadraticBezierTo(
+          size.width * 0.75, baseY, size.width, baseY - waveHeight * 0.3)
       ..lineTo(size.width, baseY)
       ..lineTo(0, baseY)
       ..close();
@@ -359,10 +395,12 @@ class _SkylinePainter extends CustomPainter {
     // مئذنة بسيطة بالمنتصف
     final minaretX = size.width * 0.5;
     canvas.drawRect(
-      Rect.fromLTWH(minaretX - 3, skylineY - waveHeight * 0.9, 6, waveHeight * 0.9),
+      Rect.fromLTWH(
+          minaretX - 3, skylineY - waveHeight * 0.9, 6, waveHeight * 0.9),
       skylinePaint,
     );
-    canvas.drawCircle(Offset(minaretX, skylineY - waveHeight * 0.9), 8, skylinePaint);
+    canvas.drawCircle(
+        Offset(minaretX, skylineY - waveHeight * 0.9), 8, skylinePaint);
   }
 
   @override

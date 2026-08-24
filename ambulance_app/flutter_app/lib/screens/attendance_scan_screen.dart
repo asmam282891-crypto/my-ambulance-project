@@ -23,7 +23,8 @@ class _AttendanceScanScreenState extends State<AttendanceScanScreen> {
     try {
       final message = await AttendanceService.recordAttendance(user.id, value);
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(message)));
       if (message.contains('بنجاح')) {
         await Future<void>.delayed(const Duration(milliseconds: 700));
         if (mounted) Navigator.pop(context, true);
@@ -51,16 +52,23 @@ class _AttendanceScanScreenState extends State<AttendanceScanScreen> {
     final user = AuthService.currentUser;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الحضور والانصراف'),
+        title: const Text('مسح باركود الحضور'),
         backgroundColor: Colors.red,
         foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            tooltip: 'تشغيل أو إيقاف الفلاش',
+            icon: const Icon(Icons.flash_on),
+            onPressed: _controller.toggleTorch,
+          ),
+        ],
       ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(16),
             child: Text(
-              'المستخدم: ${user?.fullName ?? ''}\nامسح الباركود الموحد لتسجيل الحضور أو الانصراف',
+              'المستخدم: ${user?.fullName ?? ''}\nوجّه الكاميرا إلى باركود الإسعاف المركزي لتسجيل الحضور أو الانصراف',
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
@@ -72,7 +80,9 @@ class _AttendanceScanScreenState extends State<AttendanceScanScreen> {
                 MobileScanner(
                   controller: _controller,
                   onDetect: (capture) {
-                    final barcode = capture.barcodes.isNotEmpty ? capture.barcodes.first : null;
+                    final barcode = capture.barcodes.isNotEmpty
+                        ? capture.barcodes.first
+                        : null;
                     final value = barcode?.rawValue;
                     if (value != null && value.isNotEmpty) {
                       _handleCode(value);
@@ -90,7 +100,8 @@ class _AttendanceScanScreenState extends State<AttendanceScanScreen> {
                   ),
                 ),
                 if (_busy)
-                  const Center(child: CircularProgressIndicator(color: Colors.white)),
+                  const Center(
+                      child: CircularProgressIndicator(color: Colors.white)),
               ],
             ),
           ),

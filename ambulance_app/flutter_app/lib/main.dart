@@ -19,7 +19,7 @@ class AmbulanceApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'نظام الإسعاف القومي - ولاية البحر الأحمر',
+      title: 'الإسعاف المركزي - ولاية البحر الأحمر',
       locale: const Locale('ar'),
       theme: ThemeData(
         primarySwatch: Colors.red,
