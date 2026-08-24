@@ -1,0 +1,29 @@
+name: ambulance_app
+description: "نظام الإسعاف المركزي - تطبيق طلب وإدارة الإسعاف"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  flutter_map: ^6.1.0
+  latlong2: ^0.9.1
+  geolocator: ^11.0.0
+  intl: ^0.19.0
+  font_awesome_flutter: ^11.0.0
+  url_launcher: ^6.3.0
+  supabase_flutter: ^2.6.0
+  mobile_scanner: ^7.0.0
+  qr_flutter: ^4.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true

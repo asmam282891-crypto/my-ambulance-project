@@ -1,0 +1,1 @@
+- [Flutter APK build environment](flutter-apk-build.md) — Flutter source archives need generated Android scaffolding and Java 17 plus an SDK matching plugin requirements.

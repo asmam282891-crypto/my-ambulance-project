@@ -1,0 +1,16 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "iDNOyBnqRjj8JBCet5Htp"
+uri = "file://ambulance_app/flutter_app/build/app/outputs/flutter-apk/app-release.apk"
+type = "unspecified"
+title = "تحميل تطبيق الإسعاف APK"
+description = "نسخة Release الجاهزة للتثبيت على Android، وتتضمن ميزة الباركود."
+logical_id = "9c8b9790-adb7-408b-95d1-7894ae679eda"
+content_hash = "sha256:4d35f23e25950c12507cb517d3dcdb9516237db6261733da7b763e8bf8bac0a1"
+size = 69907926
+mtime_ms = 1787580710889
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:4d33d3f2-597d-4cd7-9d28-93e06e9f6934/9c8b9790-adb7-408b-95d1-7894ae679eda/291c5ecf-e82b-46a5-946d-c5827c341086"
+storage_version_token = "1787582077013575"
+content_type = "application/octet-stream"

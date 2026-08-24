@@ -1,0 +1,14 @@
+name: ambulance_server
+description: سيرفر نظام الإسعاف المركزي بلغة Dart (بديل عن Node.js)
+publish_to: 'none'
+version: 1.0.0
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  shelf: ^1.4.1
+  shelf_router: ^1.1.4
+  sqlite3: ^2.4.0
+  crypto: ^3.0.3
+  uuid: ^4.4.0
