@@ -15,29 +15,29 @@ create policy attendance_select on public.attendance
 for select to authenticated
 using (
   auth.uid() = user_id
-  or exists (
-    select 1 from public.profiles p
-    where p.id = auth.uid() and p.role = 'admin'
-  )
-);
+    or exists (
+        select 1 from public.profiles p
+            where p.id = auth.uid() and p.role = 'admin'
+              )
+              );
 
-create policy attendance_insert on public.attendance
-for insert to authenticated
-with check (auth.uid() = user_id);
+              create policy attendance_insert on public.attendance
+              for insert to authenticated
+              with check (auth.uid() = user_id);
 
-create policy attendance_update on public.attendance
-for update to authenticated
-using (
-  auth.uid() = user_id
-  or exists (
-    select 1 from public.profiles p
-    where p.id = auth.uid() and p.role = 'admin'
-  )
-)
-with check (
-  auth.uid() = user_id
-  or exists (
-    select 1 from public.profiles p
-    where p.id = auth.uid() and p.role = 'admin'
-  )
-);
+              create policy attendance_update on public.attendance
+              for update to authenticated
+              using (
+                auth.uid() = user_id
+                  or exists (
+                      select 1 from public.profiles p
+                          where p.id = auth.uid() and p.role = 'admin'
+                            )
+                            )
+                            with check (
+                              auth.uid() = user_id
+                                or exists (
+                                    select 1 from public.profiles p
+                                        where p.id = auth.uid() and p.role = 'admin'
+                                          )
+                                          );
