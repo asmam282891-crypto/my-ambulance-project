@@ -5,11 +5,12 @@ workflows:
     instance_type: mac_mini_m1
     environment:
       java: 17
-      flutter: 3.22.2
+      flutter: stable
     scripts:
       - name: Build Flutter APK
         script: |
           cd $(dirname $(find . -name "main.dart" | head -n 1))/..
+          flutter config --no-analytics
           flutter pub get
           flutter build apk --release
     artifacts:
