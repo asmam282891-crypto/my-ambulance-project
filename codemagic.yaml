@@ -3,10 +3,13 @@ workflows:
     name: Flutter Android APK
     max_build_duration: 60
     instance_type: mac_mini_m1
+    working_directory: ambulance_app
     environment:
       flutter: stable
     scripts:
-      - name: Get dependencies
+      - name: Build Flutter APK
         script: |
           flutter pub get
-      - name: Build APKuild/app/outputs/flutter-apk/*.apk
+          flutter build apk --release
+    artifacts:
+      - ambulance_app/build/app/outputs/flutter-apk/*.apk
