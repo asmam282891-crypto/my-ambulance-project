@@ -3,7 +3,6 @@ workflows:
     name: Flutter Android APK
     max_build_duration: 60
     instance_type: mac_mini_m1
-    working_directory: تطبيق الإسعاف
     environment:
       flutter: stable
     scripts:
@@ -14,4 +13,4 @@ workflows:
         script: |
           flutter build apk --release
     artifacts:
-      - تطبيق الإسعاف/build/app/outputs/flutter-apk/*.apk
+build/app/outputs/flutter-apk/*.apk 
