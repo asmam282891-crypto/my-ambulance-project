@@ -8,8 +8,8 @@ workflows:
     scripts:
       - name: Build Flutter APK
         script: |
-          cd ambulance_app
+          cd $(dirname $(find . -name pubspec.yaml -not -path "*/.*" | head -n 1))
           flutter pub get
           flutter build apk --release
     artifacts:
-      - ambulance_app/build/app/outputs/flutter-apk/*.apk
+      - "**/build/app/outputs/flutter-apk/*.apk"
