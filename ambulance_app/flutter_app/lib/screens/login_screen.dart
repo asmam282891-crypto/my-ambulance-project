@@ -279,18 +279,16 @@ class _LoginScreenState extends State<LoginScreen> {
               offset: const Offset(0, 6)),
         ],
       ),
-      child: Center(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            const Icon(Icons.airport_shuttle, size: 62, color: Colors.red),
-            Positioned(
-              top: 14,
-              child: Icon(Icons.add, size: 16, color: Colors.red.shade300),
-            ),
-          ],
-        ),
-      ),
+       child: ClipOval(
+         child: Padding(
+           padding: const EdgeInsets.all(8),
+           child: Image.asset(
+             'assets/ambulance_logo.png',
+             fit: BoxFit.contain,
+             errorBuilder: (_, __, ___) => const Icon(Icons.airport_shuttle, size: 62, color: Colors.red),
+           ),
+         ),
+       ),
     );
   }
 

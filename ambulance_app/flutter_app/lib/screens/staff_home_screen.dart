@@ -31,12 +31,16 @@ class StaffHomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+       body: SafeArea(
+         child: SingleChildScrollView(
+           padding: const EdgeInsets.all(24),
+           child: ConstrainedBox(
+             constraints: BoxConstraints(
+               minHeight: MediaQuery.sizeOf(context).height - kToolbarHeight - 48,
+             ),
+             child: Column(
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: [
               const Icon(Icons.badge, size: 80, color: Colors.red),
               const SizedBox(height: 16),
               Text('مرحبًا ${user?.fullName ?? ''}', style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
@@ -55,7 +59,8 @@ class StaffHomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
+               ],
+             ),
           ),
         ),
       ),
