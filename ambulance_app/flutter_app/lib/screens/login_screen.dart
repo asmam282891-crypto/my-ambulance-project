@@ -10,7 +10,7 @@ import 'staff_home_screen.dart';
 
 // روابط التواصل الرسمية للتطبيق
 const kFacebookUrl = 'https://www.facebook.com/share/19jTvKkuZV/';
-const kWhatsappUrl = 'https://wa.me/249XXXXXXXXX';
+const kWhatsappUrl = 'https://wa.me/249129129888';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
