@@ -41,7 +41,10 @@ class _LoginScreenState extends State<LoginScreen> {
       _error = null;
     });
     try {
-      await AuthService.login(_usernameCtrl.text.trim(), _passwordCtrl.text);
+      final rawInput = _usernameCtrl.text.trim();
+      final emailInput = rawInput.contains('@') ? rawInput : '$rawInput@ambulance.local';
+
+      await AuthService.login(emailInput, _passwordCtrl.text);
       if (!mounted) return;
 
       final role = AuthService.currentUser!.role;
