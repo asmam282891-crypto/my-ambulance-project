@@ -151,10 +151,12 @@ final toPos = kHospitals[_toHospital] ?? const LatLng(19.6158, 37.2164);
         sex: _sex ?? '',
         clinicalCondition: _clinicalConditionCtrl.text.trim(),
         criticalCareNeed: _criticalCareNeed.toList(),
-        fromHospital: _fromHospital!,
+        fromHospital: actualFromHospital,
+
         fromFocalPoint: _fromFocalPointCtrl.text.trim(),
         fromPhone: _fromPhoneCtrl.text.trim(),
-        toHospital: _toHospital!,
+        toHospital: actualToHospital,
+
         toFocalPoint: _toFocalPointCtrl.text.trim(),
         toPhone: _toPhoneCtrl.text.trim(),
         referralAppropriate: _referralAppropriate ?? '',
