@@ -346,7 +346,18 @@ final toPos = kHospitals[_toHospital] ?? const LatLng(19.6158, 37.2164);
                   ? null
                   : (v) => setState(() => _fromHospital = v),
               validator: (v) => v == null ? 'مطلوب' : null,
-            ),
+            ),if (_fromHospital == 'أخرى') ...[
+  const SizedBox(height: 8),
+  TextFormField(
+    controller: _customFromHospitalCtrl,
+    decoration: const InputDecoration(
+      labelText: 'اسم المنشأة المحولة (يدوياً)',
+      border: OutlineInputBorder(),
+    ),
+    validator: (v) => (v == null || v.trim().isEmpty) ? 'يرجى إدخال اسم المستشفى' : null,
+  ),
+],
+
             const SizedBox(height: 10),
             TextFormField(
               controller: _fromFocalPointCtrl,
@@ -366,7 +377,18 @@ final toPos = kHospitals[_toHospital] ?? const LatLng(19.6158, 37.2164);
               items: kHospitals.keys.map((h) => DropdownMenuItem(value: h, child: Text(h))).toList(),
               onChanged: (v) => setState(() => _toHospital = v),
               validator: (v) => v == null ? 'مطلوب' : null,
-            ),
+            ),if (_toHospital == 'أخرى') ...[
+  const SizedBox(height: 8),
+  TextFormField(
+    controller: _customToHospitalCtrl,
+    decoration: const InputDecoration(
+      labelText: 'اسم المنشأة المحول إليها (يدوياً)',
+      border: OutlineInputBorder(),
+    ),
+    validator: (v) => (v == null || v.trim().isEmpty) ? 'يرجى إدخال اسم المستشفى' : null,
+  ),
+],
+
             const SizedBox(height: 10),
             TextFormField(
               controller: _toFocalPointCtrl,
