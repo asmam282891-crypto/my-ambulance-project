@@ -10,7 +10,9 @@ const Map<String, LatLng> kHospitals = {
   'مستشفى الميناء': LatLng(19.6200, 37.2100),
   'مستشفى الشرطة': LatLng(19.6100, 37.2200),
   'مستشفى الولاية': LatLng(19.6050, 37.2250),
-  'مستشفى الأمل': LatLng(19.6250, 37.2050),
+  'مستشفى الأمل': LatLng(19.6250, 37.2050),  
+  'أخرى': LatLng(19.6158, 37.2164),
+
 };
 
 const kCriticalCareOptions = ['ICU', 'CCU', 'HDU', 'PICU', 'NICU', 'Maternity ICU', 'Maternity HDU'];
