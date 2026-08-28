@@ -141,6 +141,8 @@ class _HospitalTransferScreenState extends State<HospitalTransferScreen> {
     try {
       final fromPos = kHospitals[_fromHospital]!;
       final toPos = kHospitals[_toHospital]!;
+final fromPos = kHospitals[_fromHospital] ?? const LatLng(19.6158, 37.2164);
+final toPos = kHospitals[_toHospital] ?? const LatLng(19.6158, 37.2164);
 
       final transfer = TransferRequest(
         id: '',
