@@ -10,9 +10,8 @@ const Map<String, LatLng> kHospitals = {
   'مستشفى الحوادث': LatLng(19.6200, 37.2100),
   'مستشفى الشرطة': LatLng(19.6100, 37.2200),
   'مستشفى العشي': LatLng(19.6050, 37.2250),
-  'مستشفى عثمان دقنه': LatLng(19.6250, 37.2050),  
+  'مستشفى عثمان دقنه': LatLng(19.6250, 37.2050),
   'أخرى': LatLng(19.6158, 37.2164),
-
 };
 
 const kCriticalCareOptions = ['ICU', 'CCU', 'HDU', 'PICU', 'NICU', 'Maternity ICU', 'Maternity HDU'];
@@ -50,9 +49,11 @@ class _HospitalTransferScreenState extends State<HospitalTransferScreen> {
   String? _fromHospital;
   final _fromFocalPointCtrl = TextEditingController();
   final _fromPhoneCtrl = TextEditingController();
+  final _customFromHospitalCtrl = TextEditingController();
   String? _toHospital;
   final _toFocalPointCtrl = TextEditingController();
   final _toPhoneCtrl = TextEditingController();
+  final _customToHospitalCtrl = TextEditingController();
 
   // ملاءمة التحويل
   String? _referralAppropriate;
@@ -109,7 +110,8 @@ class _HospitalTransferScreenState extends State<HospitalTransferScreen> {
   void dispose() {
     for (final c in [
       _patientNameCtrl, _dobOrAgeCtrl, _clinicalConditionCtrl,
-      _fromFocalPointCtrl, _fromPhoneCtrl, _toFocalPointCtrl, _toPhoneCtrl,
+      _fromFocalPointCtrl, _fromPhoneCtrl, _customFromHospitalCtrl,
+      _toFocalPointCtrl, _toPhoneCtrl, _customToHospitalCtrl,
       _inappropriateReasonCtrl,
       _timeReferralRequestCtrl, _timeCommunicationReceivingCtrl, _timeDepartureCtrl,
       _timeCommunicationAmbulanceCtrl, _timeFeedbackAmbulanceCtrl, _timeArrivalCtrl,
@@ -139,10 +141,15 @@ class _HospitalTransferScreenState extends State<HospitalTransferScreen> {
 
     setState(() => _submitting = true);
     try {
-      final fromPos = kHospitals[_fromHospital]!;
-      final toPos = kHospitals[_toHospital]!;
-final fromPos = kHospitals[_fromHospital] ?? const LatLng(19.6158, 37.2164);
-final toPos = kHospitals[_toHospital] ?? const LatLng(19.6158, 37.2164);
+      final fromPos = kHospitals[_fromHospital] ?? const LatLng(19.6158, 37.2164);
+      final toPos = kHospitals[_toHospital] ?? const LatLng(19.6158, 37.2164);
+
+      final actualFromHospital = _fromHospital == 'أخرى'
+          ? _customFromHospitalCtrl.text.trim()
+          : _fromHospital!;
+      final actualToHospital = _toHospital == 'أخرى'
+          ? _customToHospitalCtrl.text.trim()
+          : _toHospital!;
 
       final transfer = TransferRequest(
         id: '',
@@ -152,11 +159,9 @@ final toPos = kHospitals[_toHospital] ?? const LatLng(19.6158, 37.2164);
         clinicalCondition: _clinicalConditionCtrl.text.trim(),
         criticalCareNeed: _criticalCareNeed.toList(),
         fromHospital: actualFromHospital,
-
         fromFocalPoint: _fromFocalPointCtrl.text.trim(),
         fromPhone: _fromPhoneCtrl.text.trim(),
         toHospital: actualToHospital,
-
         toFocalPoint: _toFocalPointCtrl.text.trim(),
         toPhone: _toPhoneCtrl.text.trim(),
         referralAppropriate: _referralAppropriate ?? '',
@@ -346,18 +351,18 @@ final toPos = kHospitals[_toHospital] ?? const LatLng(19.6158, 37.2164);
                   ? null
                   : (v) => setState(() => _fromHospital = v),
               validator: (v) => v == null ? 'مطلوب' : null,
-            ),if (_fromHospital == 'أخرى') ...[
-  const SizedBox(height: 8),
-  TextFormField(
-    controller: _customFromHospitalCtrl,
-    decoration: const InputDecoration(
-      labelText: 'اسم المنشأة المحولة (يدوياً)',
-      border: OutlineInputBorder(),
-    ),
-    validator: (v) => (v == null || v.trim().isEmpty) ? 'يرجى إدخال اسم المستشفى' : null,
-  ),
-],
-
+            ),
+            if (_fromHospital == 'أخرى') ...[
+              const SizedBox(height: 8),
+              TextFormField(
+                controller: _customFromHospitalCtrl,
+                decoration: const InputDecoration(
+                  labelText: 'اسم المنشأة المحولة (يدوياً)',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) => (v == null || v.trim().isEmpty) ? 'يرجى إدخال اسم المستشفى' : null,
+              ),
+            ],
             const SizedBox(height: 10),
             TextFormField(
               controller: _fromFocalPointCtrl,
@@ -377,18 +382,18 @@ final toPos = kHospitals[_toHospital] ?? const LatLng(19.6158, 37.2164);
               items: kHospitals.keys.map((h) => DropdownMenuItem(value: h, child: Text(h))).toList(),
               onChanged: (v) => setState(() => _toHospital = v),
               validator: (v) => v == null ? 'مطلوب' : null,
-            ),if (_toHospital == 'أخرى') ...[
-  const SizedBox(height: 8),
-  TextFormField(
-    controller: _customToHospitalCtrl,
-    decoration: const InputDecoration(
-      labelText: 'اسم المنشأة المحول إليها (يدوياً)',
-      border: OutlineInputBorder(),
-    ),
-    validator: (v) => (v == null || v.trim().isEmpty) ? 'يرجى إدخال اسم المستشفى' : null,
-  ),
-],
-
+            ),
+            if (_toHospital == 'أخرى') ...[
+              const SizedBox(height: 8),
+              TextFormField(
+                controller: _customToHospitalCtrl,
+                decoration: const InputDecoration(
+                  labelText: 'اسم المنشأة المحول إليها (يدوياً)',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) => (v == null || v.trim().isEmpty) ? 'يرجى إدخال اسم المستشفى' : null,
+              ),
+            ],
             const SizedBox(height: 10),
             TextFormField(
               controller: _toFocalPointCtrl,
