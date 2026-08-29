@@ -83,8 +83,8 @@ class ApiService {
     final data = await _client.from('profiles').select().order('created_at');
     return (data as List).map((e) => AppUser.fromJson(e)).toList();
   }
-
-  /// ينشئ حساب دخول + صف profiles عن طريق دالة Supabase الآمنة الموجودة في create_users_function.sql
+/// ينشئ حساب دخول حقيقي (auth.users + auth.identities) وصف profiles
+  /// عن طريق Edge Function الآمنة create_staff_user
   static Future<void> createUser({
     required String username,
     required String password,
@@ -93,14 +93,26 @@ class ApiService {
     String? ambulanceId,
     String? hospitalName,
   }) async {
-    await _client.rpc('create_staff_user', params: {
-      'p_username': username,
-      'p_password': password,
-      'p_full_name': fullName,
-      'p_role': role,
-      'p_ambulance_id': ambulanceId,
-      'p_hospital_name': hospitalName,
-    });
+    final response = await _client.functions.invoke(
+      'create_staff_user',
+      body: {
+        'username': username,
+        'password': password,
+        'fullName': fullName,
+        'role': role,
+        if (ambulanceId != null) 'ambulanceId': ambulanceId,
+        if (hospitalName != null) 'hospitalName': hospitalName,
+      },
+    );
+
+    final data = response.data;
+    if (data is Map && data['error'] != null) {
+      throw Exception(data['error']);
+    }
+    if (response.status != 200) {
+      throw Exception('فشل إنشاء المستخدم (كود: ${response.status})');
+    }
+  }
   }
 
   // ---------------- Attendance (الحضور والانصراف) ----------------
