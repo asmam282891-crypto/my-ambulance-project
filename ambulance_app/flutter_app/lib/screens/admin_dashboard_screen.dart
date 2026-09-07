@@ -6,13 +6,9 @@ import '../models/ambulance_request.dart';
 import '../models/transfer_request.dart';
 import '../models/ambulance.dart';
 import '../models/app_user.dart';
-import '../models/attendance_record.dart';
 import '../services/api_service.dart';
 import '../services/auth_service.dart';
 import 'login_screen.dart';
-import 'attendance_scan_screen.dart';
-import '../services/attendance_service.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class AdminDashboardScreen extends StatefulWidget {
   const AdminDashboardScreen({super.key});
@@ -30,14 +26,12 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen>
   List<TransferRequest> _transfers = [];
   List<Ambulance> _ambulances = [];
   List<AppUser> _users = [];
-  List<AttendanceRecord> _todayAttendance = [];
   String? _error;
-  String? _attendanceError;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 7, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
     _refresh();
     _timer = Timer.periodic(const Duration(seconds: 5), (_) => _refresh());
   }
@@ -78,18 +72,6 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen>
       }
     }
 
-    try {
-      final attendanceList = await ApiService.getAttendanceForDate(DateTime.now());
-      if (!mounted) return;
-      setState(() {
-        _todayAttendance = attendanceList;
-        _attendanceError = null;
-      });
-    } catch (e) {
-      if (mounted) {
-        setState(() => _attendanceError = 'تعذر تحميل جدول attendance في Supabase: $e');
-      }
-    }
   }
 
   // ---------------- إجراءات البلاغات ----------------
@@ -276,24 +258,6 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen>
     }
   }
 
-  Future<void> _showSharedQr() async {
-    await showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('باركود الحضور والانصراف الموحد'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            QrImageView(data: AttendanceService.sharedQrValue, size: 240),
-            const SizedBox(height: 12),
-            const Text('هذا هو الباركود الذي يمسحه جميع الموظفين. يمكن عرضه على شاشة أو طباعته.'),
-          ],
-        ),
-        actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('إغلاق'))],
-      ),
-    );
-  }
-
   void _showTransferDetails(TransferRequest t) {
     Widget row(String label, String value) {
       if (value.trim().isEmpty) return const SizedBox.shrink();
@@ -406,17 +370,11 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen>
             Tab(text: 'التحويلات'),
             Tab(text: 'الأسطول'),
             Tab(text: 'المستخدمون'),
-            Tab(text: 'الحضور'),
             Tab(text: 'التقارير'),
             Tab(text: 'خريطة عامة'),
           ],
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.qr_code_scanner),
-            tooltip: 'حضور وانصراف',
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AttendanceScanScreen())),
-          ),
           IconButton(icon: const Icon(Icons.logout), onPressed: _logout, tooltip: 'تسجيل الخروج'),
         ],
       ),
@@ -437,7 +395,6 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen>
                 _buildTransfersTab(),
                 _buildFleetTab(),
                 _buildUsersTab(),
-                _buildAttendanceTab(),
                 _buildReportsTab(),
                 _buildMapTab(),
               ],
@@ -599,12 +556,6 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen>
                 label: const Text('إضافة مستخدم'),
                 onPressed: _addUserDialog,
               )),
-              const SizedBox(width: 8),
-              Expanded(child: OutlinedButton.icon(
-                icon: const Icon(Icons.qr_code_2),
-                label: const Text('باركود الحضور'),
-                onPressed: _showSharedQr,
-              )),
             ],
           ),
         ),
@@ -624,57 +575,6 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen>
                           title: Text(u.fullName),
                           subtitle: Text('${u.username} - ${u.roleLabel}'
                               '${u.hospitalName != null && u.hospitalName!.isNotEmpty ? " (${u.hospitalName})" : ""}'),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildAttendanceTab() {
-    final todayLabel = '${DateTime.now().year}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().day.toString().padLeft(2, '0')}';
-    final usersById = {for (final u in _users) u.id: u};
-
-    return Column(
-      children: [
-        if (_attendanceError != null)
-          Container(
-            width: double.infinity,
-            color: Colors.orange[50],
-            padding: const EdgeInsets.all(8),
-            child: Text(_attendanceError!, style: const TextStyle(color: Colors.orange)),
-          ),
-        Padding(
-          padding: const EdgeInsets.all(12),
-          child: Row(
-            children: [
-              Expanded(child: Text('حضور وانصراف اليوم: $todayLabel', style: const TextStyle(fontWeight: FontWeight.bold))),
-              IconButton(icon: const Icon(Icons.refresh), onPressed: _refresh),
-              IconButton(icon: const Icon(Icons.qr_code_scanner), tooltip: 'مسح الباركود', onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AttendanceScanScreen()))),
-            ],
-          ),
-        ),
-        Expanded(
-          child: _todayAttendance.isEmpty
-              ? const Center(child: Text('لا توجد سجلات حضور اليوم'))
-              : RefreshIndicator(
-                  onRefresh: _refresh,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    itemCount: _todayAttendance.length,
-                    itemBuilder: (context, i) {
-                      final a = _todayAttendance[i];
-                      final u = usersById[a.userId];
-                      String fmt(DateTime? d) => d == null ? '—' : '${d.hour.toString().padLeft(2, '0')}:${d.minute.toString().padLeft(2, '0')}';
-                      return Card(
-                        child: ListTile(
-                          leading: Icon(a.checkOut == null ? Icons.login : Icons.check_circle, color: a.checkOut == null ? Colors.orange : Colors.green),
-                          title: Text(u?.fullName ?? a.userId),
-                          subtitle: Text('${u?.roleLabel ?? ''}\nالحضور: ${fmt(a.checkIn)}    الانصراف: ${fmt(a.checkOut)}'),
-                          isThreeLine: true,
                         ),
                       );
                     },
@@ -730,8 +630,6 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen>
           statCard('البلاغات المكتملة', completedRequests, Icons.check_circle, Colors.green),
           statCard('إجمالي التحويلات', _transfers.length, Icons.sync_alt, Colors.blue),
           statCard('التحويلات المكتملة', completedTransfers, Icons.check_circle, Colors.green),
-          statCard('حضور اليوم', _todayAttendance.where((a) => a.checkIn != null).length, Icons.how_to_reg, Colors.green),
-          statCard('غياب اليوم', 0, Icons.person_off, Colors.red),
           const SizedBox(height: 16),
           const Text('توزيع حالة الأسطول', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           const SizedBox(height: 8),
