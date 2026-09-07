@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
-import 'attendance_scan_screen.dart';
 import 'login_screen.dart';
 
 class StaffHomeScreen extends StatelessWidget {
@@ -47,18 +46,6 @@ class StaffHomeScreen extends StatelessWidget {
               const SizedBox(height: 8),
               Text(user?.roleLabel ?? '', style: const TextStyle(color: Colors.grey)),
               const SizedBox(height: 32),
-              SizedBox(
-                width: double.infinity,
-                height: 52,
-                child: ElevatedButton.icon(
-                  icon: const Icon(Icons.qr_code_scanner),
-                  label: const Text('تسجيل الحضور / الانصراف'),
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const AttendanceScanScreen()),
-                  ),
-                ),
-              ),
                ],
              ),
           ),
