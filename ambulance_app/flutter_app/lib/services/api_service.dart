@@ -4,7 +4,6 @@ import '../models/transfer_request.dart';
 import '../models/ambulance.dart';
 import '../models/app_user.dart';
 import '../models/staff_member.dart';
-import '../models/attendance_record.dart';
 import 'auth_service.dart';
 
 /// كل عمليات القراءة والكتابة تصير مباشرة مع Supabase
@@ -114,19 +113,5 @@ class ApiService {
     }
   }
 
-
-  // ---------------- Attendance (الحضور والانصراف) ----------------
-
-  static String _dateOnly(DateTime d) =>
-      '${d.year.toString().padLeft(4, '0')}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
-
-  static Future<List<AttendanceRecord>> getAttendanceForDate(DateTime date) async {
-    final data = await _client
-        .from('attendance')
-        .select()
-        .eq('attendance_date', _dateOnly(date))
-        .order('check_in');
-    return (data as List).map((e) => AttendanceRecord.fromJson(e)).toList();
-  }
 
 }
