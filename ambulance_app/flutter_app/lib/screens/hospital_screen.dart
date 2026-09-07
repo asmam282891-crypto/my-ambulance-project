@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../models/transfer_request.dart';
 import '../services/api_service.dart';
 import '../services/auth_service.dart';
-import 'attendance_scan_screen.dart';
 import 'login_screen.dart';
 import 'hospital_transfer_screen.dart';
 
@@ -109,11 +108,6 @@ class _HospitalScreenState extends State<HospitalScreen> with SingleTickerProvid
           ],
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.qr_code_scanner),
-            tooltip: 'الحضور والانصراف',
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AttendanceScanScreen())),
-          ),
           IconButton(icon: const Icon(Icons.logout), onPressed: _logout, tooltip: 'تسجيل الخروج'),
         ],
       ),
