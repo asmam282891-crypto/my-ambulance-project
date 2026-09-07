@@ -5,7 +5,6 @@ import 'package:latlong2/latlong.dart';
 import '../models/ambulance_request.dart';
 import '../services/api_service.dart';
 import '../services/auth_service.dart';
-import 'attendance_scan_screen.dart';
 import 'login_screen.dart';
 
 class ParamedicScreen extends StatefulWidget {
@@ -107,11 +106,6 @@ class _ParamedicScreenState extends State<ParamedicScreen> {
         backgroundColor: Colors.red,
         foregroundColor: Colors.white,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.qr_code_scanner),
-            tooltip: 'الحضور والانصراف',
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AttendanceScanScreen())),
-          ),
           IconButton(icon: const Icon(Icons.logout), onPressed: _logout, tooltip: 'تسجيل الخروج'),
         ],
       ),
