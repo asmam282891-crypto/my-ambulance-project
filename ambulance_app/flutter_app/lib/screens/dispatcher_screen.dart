@@ -5,7 +5,6 @@ import 'package:geolocator/geolocator.dart';
 import '../models/ambulance_request.dart';
 import '../services/api_service.dart';
 import '../services/auth_service.dart';
-import 'attendance_scan_screen.dart';
 import 'login_screen.dart';
 import 'hospital_transfer_screen.dart';
 
@@ -60,11 +59,6 @@ class _DispatcherScreenState extends State<DispatcherScreen>
           tabs: const [Tab(text: 'بلاغ جديد'), Tab(text: 'البلاغات'), Tab(text: 'تحويل مستشفى')],
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.qr_code_scanner),
-            tooltip: 'الحضور والانصراف',
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AttendanceScanScreen())),
-          ),
           IconButton(icon: const Icon(Icons.logout), onPressed: _logout, tooltip: 'تسجيل الخروج'),
         ],
       ),
