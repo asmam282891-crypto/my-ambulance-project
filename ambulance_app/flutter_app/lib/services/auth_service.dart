@@ -12,7 +12,9 @@ class AuthService {
   static bool get isLoggedIn => _client.auth.currentSession != null;
 
   static Future<void> login(String username, String password) async {
-    final email = '$username${SupabaseConfig.emailSuffix}';
+    final email = username.contains('@')
+        ? username
+        : '$username${SupabaseConfig.emailSuffix}';
     try {
       final res = await _client.auth.signInWithPassword(email: email, password: password);
       final uid = res.user?.id;
