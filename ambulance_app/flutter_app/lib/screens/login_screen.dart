@@ -6,7 +6,6 @@ import 'admin_dashboard_screen.dart';
 import 'dispatcher_screen.dart';
 import 'paramedic_screen.dart';
 import 'hospital_screen.dart';
-import 'staff_home_screen.dart';
 
 // روابط التواصل الرسمية للتطبيق
 const kFacebookUrl = 'https://www.facebook.com/share/19jTvKkuZV/';
@@ -62,11 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
         case 'hospital':
           destination = const HospitalScreen();
           break;
-        case 'doctor':
-        case 'nurse':
-        case 'employee':
-          destination = const StaffHomeScreen();
-          break;
         default:
           destination = const LoginScreen();
       }
@@ -117,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         _buildBadge(),
                         const SizedBox(height: 18),
                         const Text(
-                          'الإسعاف المركزي',
+                          'الإسعاف القومي',
                           style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,

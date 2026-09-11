@@ -1,4 +1,4 @@
-// سيرفر نظام الإسعاف المركزي - Dart + SQLite + تسجيل دخول وصلاحيات
+// سيرفر نظام الإسعاف القومي - Dart + SQLite + تسجيل دخول وصلاحيات
 //
 // طريقة التشغيل:
 //   dart pub get
@@ -412,7 +412,7 @@ void main() async {
       .addHandler(router.call);
 
   final server = await shelf_io.serve(handler, InternetAddress.anyIPv4, 3000);
-  print('✅ سيرفر الإسعاف المركزي (Dart + SQLite + صلاحيات) يعمل على http://localhost:${server.port}');
+  print('✅ سيرفر الإسعاف القومي (Dart + SQLite + صلاحيات) يعمل على http://localhost:${server.port}');
   print('📦 قاعدة البيانات محفوظة في ملف: ambulance.db');
   print('👤 مستخدمو الدخول الابتدائيون: admin/Ps@Admin26, dispatcher/Ps@Dispatch26, paramedic1/Ps@Medic26, hospital1/Ps@Hospital26');
 }

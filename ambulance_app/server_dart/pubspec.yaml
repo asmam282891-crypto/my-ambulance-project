@@ -1,5 +1,5 @@
 name: ambulance_server
-description: سيرفر نظام الإسعاف المركزي بلغة Dart (بديل عن Node.js)
+description: سيرفر نظام الإسعاف القومي بلغة Dart (بديل عن Node.js)
 publish_to: 'none'
 version: 1.0.0
 

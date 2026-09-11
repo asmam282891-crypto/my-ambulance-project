@@ -36,12 +36,6 @@ class AppUser {
         return 'مسعف';
       case 'hospital':
         return 'مستشفى';
-      case 'doctor':
-        return 'طبيب';
-      case 'nurse':
-        return 'ممرض / ممرضة';
-      case 'employee':
-        return 'موظف';
       default:
         return role;
     }

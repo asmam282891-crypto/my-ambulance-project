@@ -1,5 +1,5 @@
 name: ambulance_app
-description: "نظام الإسعاف المركزي - تطبيق طلب وإدارة الإسعاف"
+description: "نظام الإسعاف القومي - تطبيق طلب وإدارة الإسعاف"
 publish_to: 'none'
 version: 1.0.0+1
 

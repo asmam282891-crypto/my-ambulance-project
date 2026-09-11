@@ -195,7 +195,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen>
     final passwordCtrl = TextEditingController();
     final nameCtrl = TextEditingController();
     final hospitalCtrl = TextEditingController();
-    String role = 'doctor';
+    String role = 'paramedic';
 
     final result = await showDialog<bool>(
       context: context,
@@ -214,15 +214,12 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen>
                   value: role,
                   decoration: const InputDecoration(labelText: 'الوظيفة'),
                   items: const [
-                    DropdownMenuItem(value: 'doctor', child: Text('طبيب')),
-                    DropdownMenuItem(value: 'nurse', child: Text('ممرض / ممرضة')),
                     DropdownMenuItem(value: 'paramedic', child: Text('مسعف')),
-                    DropdownMenuItem(value: 'employee', child: Text('موظف')),
                     DropdownMenuItem(value: 'dispatcher', child: Text('موظف بلاغات')),
                     DropdownMenuItem(value: 'hospital', child: Text('مستشفى')),
                     DropdownMenuItem(value: 'admin', child: Text('مدير النظام')),
                   ],
-                  onChanged: (v) => setDialogState(() => role = v ?? 'doctor'),
+                  onChanged: (v) => setDialogState(() => role = v ?? 'paramedic'),
                 ),
                 if (role == 'hospital')
                   TextField(controller: hospitalCtrl, decoration: const InputDecoration(labelText: 'اسم المستشفى')),
