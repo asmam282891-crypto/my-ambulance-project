@@ -10,7 +10,7 @@ create table profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   username text not null unique,
   "fullName" text not null,
-  role text not null check (role in ('admin','dispatcher','paramedic','hospital')),
+  role text not null check (role in ('admin','dispatcher','paramedic','hospital','doctor','nurse','driver')),
   "ambulanceId" text,
   "hospitalName" text,
   created_at timestamptz not null default now()

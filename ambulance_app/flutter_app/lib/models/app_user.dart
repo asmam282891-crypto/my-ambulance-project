@@ -2,7 +2,7 @@ class AppUser {
   final String id;
   final String username;
   final String fullName;
-  final String role; // admin, dispatcher, paramedic, hospital
+  final String role; // ambulance app roles
   final String? ambulanceId;
   final String? hospitalName;
 
@@ -19,10 +19,10 @@ class AppUser {
     return AppUser(
       id: json['id'].toString(),
       username: json['username'] ?? '',
-      fullName: json['fullName'] ?? '',
+      fullName: json['fullName'] ?? json['full_name'] ?? '',
       role: json['role'] ?? '',
-      ambulanceId: json['ambulanceId']?.toString(),
-      hospitalName: json['hospitalName']?.toString(),
+      ambulanceId: (json['ambulanceId'] ?? json['ambulance_id'])?.toString(),
+      hospitalName: (json['hospitalName'] ?? json['hospital_name'])?.toString(),
     );
   }
 
@@ -36,6 +36,12 @@ class AppUser {
         return 'مسعف';
       case 'hospital':
         return 'مستشفى';
+      case 'doctor':
+        return 'طبيب';
+      case 'nurse':
+        return 'ممرض';
+      case 'driver':
+        return 'سائق';
       default:
         return role;
     }

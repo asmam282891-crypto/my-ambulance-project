@@ -61,6 +61,13 @@ class _LoginScreenState extends State<LoginScreen> {
         case 'hospital':
           destination = const HospitalScreen();
           break;
+        case 'doctor':
+        case 'nurse':
+          destination = const HospitalScreen();
+          break;
+        case 'driver':
+          destination = const ParamedicScreen();
+          break;
         default:
           destination = const LoginScreen();
       }

@@ -78,7 +78,19 @@ class ApiService {
   // ---------------- Users (المستخدمون) ----------------
 
   static Future<List<AppUser>> getUsers() async {
-    final data = await _client.from('profiles').select().order('created_at');
+    final data = await _client
+        .from('profiles')
+        .select()
+        .inFilter('role', [
+          'admin',
+          'dispatcher',
+          'paramedic',
+          'hospital',
+          'doctor',
+          'nurse',
+          'driver',
+        ])
+        .order('created_at');
     return (data as List).map((e) => AppUser.fromJson(e)).toList();
   }
   /// ينشئ حساب دخول حقيقي (auth.users + auth.identities) وصف profiles

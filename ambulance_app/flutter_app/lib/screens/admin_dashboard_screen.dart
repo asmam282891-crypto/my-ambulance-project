@@ -217,11 +217,14 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen>
                     DropdownMenuItem(value: 'paramedic', child: Text('مسعف')),
                     DropdownMenuItem(value: 'dispatcher', child: Text('موظف بلاغات')),
                     DropdownMenuItem(value: 'hospital', child: Text('مستشفى')),
+                    DropdownMenuItem(value: 'doctor', child: Text('طبيب')),
+                    DropdownMenuItem(value: 'nurse', child: Text('ممرض')),
+                    DropdownMenuItem(value: 'driver', child: Text('سائق')),
                     DropdownMenuItem(value: 'admin', child: Text('مدير النظام')),
                   ],
                   onChanged: (v) => setDialogState(() => role = v ?? 'paramedic'),
                 ),
-                if (role == 'hospital')
+                if (role == 'hospital' || role == 'doctor' || role == 'nurse')
                   TextField(controller: hospitalCtrl, decoration: const InputDecoration(labelText: 'اسم المستشفى')),
               ],
             ),

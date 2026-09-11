@@ -30,7 +30,7 @@ begin
     raise exception 'الاسم واسم المستخدم وكلمة المرور مطلوبة';
   end if;
 
-  if p_role not in ('admin','dispatcher','paramedic','hospital') then
+  if p_role not in ('admin','dispatcher','paramedic','hospital','doctor','nurse','driver') then
     raise exception 'الدور غير مسموح';
   end if;
 
